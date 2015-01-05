@@ -8,5 +8,5 @@ AnyLink is an ExpressionEngine fieldtype which allows the user to create a link 
 
 ## Installation
 
-1. Copy the 'anylink' folder to 'system/expressionengine/third_party' on your server.
-2. Visit Add-ons > Fieldtypes in your ExpressionEngine control panel and, next to AnyLink, click 'Install'.
+1. Copy the `anylink` folder to `system/expressionengine/third_party` on your server.
+2. Visit Add-ons > Fieldtypes in your ExpressionEngine control panel and, next to AnyLink, click Install.

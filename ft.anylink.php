@@ -11,7 +11,7 @@ class Anylink_ft extends EE_Fieldtype {
 
 		var $info = array(
 				'name'      => 'AnyLink',
-				'version'   => '1.1',
+				'version'   => '1.2',
 				'author'		=> 'Pete Heaney'
 		);
 
@@ -39,7 +39,7 @@ class Anylink_ft extends EE_Fieldtype {
 			$this->EE->cp->add_to_head('<style type="text/css">
 				.al-field{ display:none; }
 				.al-field.show{ display:inline; }
-				.al-field, .al-options{ margin-right:5px; }
+				.al-field, .al-options{ margin-right:5px; margin-top:11px; }
 				.al-options, .al-page{ padding:4px; border:1px solid #8195A0; border-radius:3px; color:#5F6C74; min-width:200px; }
 				.al-options:focus, .al-page:focus { padding:3px; border:2px solid #8195A0; }
 				span.al-page{ padding:4px; border:0; }
@@ -95,6 +95,14 @@ class Anylink_ft extends EE_Fieldtype {
 
 			$pages = unserialize(base64_decode($data['site_pages']));
 			return $pages;
+		}
+
+		private function _get_spas()
+		{
+			$query = ee()->db->select('title, url_title')
+									 		 ->where('channel_id', 10)
+									 		 ->where('status', 'open')
+											 ->get('channel_titles');
 		}
 
 		/**
@@ -251,8 +259,14 @@ class Anylink_ft extends EE_Fieldtype {
 			{
 				$pagest = $this->_get_pages();
 				$pages = $pagest[$this->site]['uris'];
-				$site_url = rtrim($this->EE->config->item('site_url'), '/');
-				return $site_url . $pages[$field_data['page']];
+				if(array_key_exists($field_data['page'], $pages))
+				{
+					$site_url = rtrim($this->EE->config->item('site_url'), '/');
+					return $site_url . $pages[$field_data['page']];
+				}
+				else{
+					return '';
+				}
 			}
 			elseif($field_data['type'] === 'email')
 			{
@@ -302,15 +316,14 @@ class Anylink_ft extends EE_Fieldtype {
 				return '';
 			}
 		}
-
-		public function save_var_field($field_data)
-		{
-			return $this->save($field_data);
-		}
-		function display_var_tag($data, $params, $tagdata)
-		{
-	      return $this->pre_process($data);
-		}
+	public function save_var_field($field_data)
+	{
+		return $this->save($field_data);
+	}
+	function display_var_tag($data, $params, $tagdata)
+	{
+      return $this->pre_process($data);
+	}
 
 		/**
      * Save Cell

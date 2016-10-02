@@ -1,6 +1,6 @@
 # AnyLink
 
-AnyLink is an ExpressionEngine fieldtype which allows the user to create a link using one of three methods:
+AnyLink is an ExpressionEngine fieldtype that allows the user to create a link using one of three methods:
 
 1. Select one of the site's Pages
 2. Manually enter a URL
